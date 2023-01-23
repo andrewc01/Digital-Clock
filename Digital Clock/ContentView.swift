@@ -12,6 +12,7 @@ struct ContentView: View {
     @State var date = Date()
     @AppStorage("isDarkMode") private var isDarkMode = false
     
+    // This is the UI
     var body: some View {
             VStack {
                 Text("\(timeString(date: date))")
@@ -19,14 +20,14 @@ struct ContentView: View {
                     .font(.system(size: 80))
                     
                 
-                Toggle("Dark Mode", isOn: $isDarkMode)
+                Toggle("Dark Mode", isOn: $isDarkMode) // This is the darkmode toggle button
             }
             .padding()
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            .statusBar(hidden: true)
+            .statusBar(hidden: true) // hides status bar (time, signal bar, battery, etc)
         }
     
-    // This is where the app shows the time
+    // This is how the app shows the time (formatting)
     var timeFormat: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "E, MMM d, yyyy hh:mm:ss a"
