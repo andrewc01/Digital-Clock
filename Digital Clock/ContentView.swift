@@ -6,25 +6,27 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     @State var date = Date()
+    @AppStorage("isDarkMode") private var isDarkMode = false
     
     var body: some View {
-        ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
-            
             VStack {
                 Text("\(timeString(date: date))")
                     .onAppear(perform: {let _ = self.updateTimer})
                     .font(.system(size: 80))
-                    .foregroundColor(.white)
+                    
+                
+                Toggle("Dark Mode", isOn: $isDarkMode)
             }
             .padding()
+            .preferredColorScheme(isDarkMode ? .dark : .light)
+            .statusBar(hidden: true)
         }
-        
-    }
     
+    // This is where the app shows the time
     var timeFormat: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "E, MMM d, yyyy hh:mm:ss a"
@@ -36,6 +38,7 @@ struct ContentView: View {
         return time
     }
     
+    // This is how the app updates time
     var updateTimer: Timer {
         Timer.scheduledTimer(withTimeInterval: 1,
                              repeats: true,
@@ -44,6 +47,7 @@ struct ContentView: View {
     }
 }
 
+// App preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
