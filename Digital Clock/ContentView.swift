@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//import UIKit
 
 struct ContentView: View {
     @State var date = Date()
@@ -24,7 +23,9 @@ struct ContentView: View {
             }
             .padding()
             .preferredColorScheme(isDarkMode ? .dark : .light)
+            #if os(iOS)
             .statusBar(hidden: true) // hides status bar (time, signal bar, battery, etc)
+            #endif
         }
     
     // This is how the app shows the time (formatting)
